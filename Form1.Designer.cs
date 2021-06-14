@@ -46,6 +46,9 @@
             // 
             // listBox1
             // 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(4, 106);
             this.listBox1.Name = "listBox1";
@@ -71,6 +74,7 @@
             this.popupNotifier1.Size = new System.Drawing.Size(400, 100);
             this.popupNotifier1.TitleFont = new System.Drawing.Font("Segoe UI", 9F);
             this.popupNotifier1.TitleText = null;
+            this.popupNotifier1.Click += new System.EventHandler(this.popupNotifier1_Click);
             // 
             // checkBox1
             // 
@@ -152,8 +156,9 @@
             // 
             // linkLabel1
             // 
+            this.linkLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(435, 204);
+            this.linkLabel1.Location = new System.Drawing.Point(444, 210);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(134, 13);
             this.linkLabel1.TabIndex = 10;
@@ -163,8 +168,9 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 204);
+            this.label2.Location = new System.Drawing.Point(1, 210);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(373, 13);
             this.label2.TabIndex = 11;
@@ -187,7 +193,8 @@
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.listBox1);
             this.Name = "Form1";
-            this.Text = "FileNotifier";
+            this.Text = "FileNotifier v2.1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);

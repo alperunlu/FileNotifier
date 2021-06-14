@@ -9,10 +9,11 @@ namespace FileNotifierV2
     public partial class Form1 : Form
     {
         private string exePath = string.Empty;
+        public string filePath = string.Empty;
 
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         public void LogWrite(string logMessage)
@@ -35,13 +36,14 @@ namespace FileNotifierV2
         {
             if (checkBox1.Checked == true)
             {
-                string time = DateTime.Now.ToString("h:mm:ss");
-                string alert = string.Format("File created {0} {1} - {2}", e.FullPath, e.Name, time);
+                string time = DateTime.Now.ToString("HH:mm:ss");
+                string alert = string.Format("File created {0} - {2}", e.FullPath, e.Name, time);
                 //MessageBox.Show(alert);
                 listBox1.BeginUpdate();
                 listBox1.Items.Add(alert);
                 listBox1.EndUpdate();
                 LogWrite(alert);
+                filePath = e.FullPath;
                 popupNotifier1.TitleText = "File Created!";
                 popupNotifier1.ContentText = alert;
                 popupNotifier1.Popup();
@@ -52,13 +54,14 @@ namespace FileNotifierV2
         {
             if (checkBox2.Checked == true)
             {
-                string time = DateTime.Now.ToString("h:mm:ss");
-                string alert = string.Format("File deleted {0} {1} - {2}", e.FullPath, e.Name, time);
+                string time = DateTime.Now.ToString("HH:mm:ss");
+                string alert = string.Format("File deleted {0} - {2}", e.FullPath, e.Name, time);
                 //MessageBox.Show(alert);
                 listBox1.BeginUpdate();
                 listBox1.Items.Add(alert);
                 listBox1.EndUpdate();
                 LogWrite(alert);
+                filePath = e.FullPath;
                 popupNotifier1.TitleText = "File Deleted!";
                 popupNotifier1.ContentText = alert;
                 popupNotifier1.Popup();
@@ -69,13 +72,14 @@ namespace FileNotifierV2
         {
             if (checkBox3.Checked == true)
             {
-                string time = DateTime.Now.ToString("h:mm:ss");
-                string alert = string.Format("File renamed {0} {1} - {2}", e.FullPath, e.Name, time);
+                string time = DateTime.Now.ToString("HH:mm:ss");
+                string alert = string.Format("File renamed {0} - {2}", e.FullPath, e.Name, time);
                 //MessageBox.Show(alert);
                 listBox1.BeginUpdate();
                 listBox1.Items.Add(alert);
                 listBox1.EndUpdate();
                 LogWrite(alert);
+                filePath = e.FullPath;
                 popupNotifier1.TitleText = "File Renamed!";
                 popupNotifier1.ContentText = alert;
                 popupNotifier1.Popup();
@@ -86,13 +90,14 @@ namespace FileNotifierV2
         {
             if (checkBox4.Checked == true)
             {
-                string time = DateTime.Now.ToString("h:mm:ss");
-                string alert = string.Format("File changed {0} {1} - {2}", e.FullPath, e.Name, time);
+                string time = DateTime.Now.ToString("HH:mm:ss");
+                string alert = string.Format("File changed {0} - {2}", e.FullPath, e.Name, time);
                 //MessageBox.Show(alert);
                 listBox1.BeginUpdate();
                 listBox1.Items.Add(alert);
                 listBox1.EndUpdate();
                 LogWrite(alert);
+                filePath = e.FullPath;
                 popupNotifier1.TitleText = "File Changed!";
                 popupNotifier1.ContentText = alert;
                 popupNotifier1.Popup();
@@ -132,6 +137,7 @@ namespace FileNotifierV2
                     //MessageBox.Show(fbd.SelectedPath.ToString());
                     textBox1.Text = fbd.SelectedPath;
                     fileSystemWatcher1.Path = fbd.SelectedPath;
+                    
                 }
             }
         }
@@ -139,6 +145,18 @@ namespace FileNotifierV2
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.github.com/alperunlu");
+        }
+
+        private void popupNotifier1_Click(object sender, EventArgs e)
+        {
+            string argument = "/select, \"" + filePath + "\"";
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string time = DateTime.Now.ToString("HH_mm_ss");
+            System.IO.File.Move("log.txt", "log"+time+".txt");
         }
     }
 }
