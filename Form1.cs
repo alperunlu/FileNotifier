@@ -155,8 +155,59 @@ namespace FileNotifierV2
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string time = DateTime.Now.ToString("HH_mm_ss");
-            System.IO.File.Move("log.txt", "log"+time+".txt");
+            string time = DateTime.Now.ToString("dd_MM_yyyy_HH_mm_ss");
+            if (File.Exists("log.txt")) System.IO.File.Move("log.txt", "log"+time+".txt");
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            fileSystemWatcher1.EnableRaisingEvents = false;
+            fileSystemWatcher1.EnableRaisingEvents = true;
+        }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            string selected = listBox1.SelectedItem.ToString();
+           
+            if (selected.Length > 0)
+            {
+                int i = selected.IndexOf("d ") + 1;
+                selected = selected.Substring(i);
+                selected = selected.Remove(selected.IndexOf(" -") + 1);
+                selected = selected.Substring(1);
+                selected = selected.Remove(selected.Length - 1, 1);
+
+            }
+            //MessageBox.Show(selected);
+            string argument = "/select, \"" + selected + "\"";
+           // Console.WriteLine(argument);
+            System.Diagnostics.Process.Start("explorer.exe", argument);
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            fileSystemWatcher1.Filter = "*.doc*";
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            fileSystemWatcher1.Filter = "*.xls*";
+        }
+
+        private void radioButton4_CheckedChanged(object sender, EventArgs e)
+        {
+            fileSystemWatcher1.Filter = "*.ppt*";
+        }
+
+        private void radioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            fileSystemWatcher1.Filter = "*.pdf*";
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            fileSystemWatcher1.Filter = "*.*";
         }
     }
 }
